@@ -9,10 +9,7 @@ body{
     background-color: #f5f6fa;
 }
 
-h1{
-    text-align: center;
-    margin-top : 50;
-}
+
 
 
 .app{
@@ -154,9 +151,9 @@ h1{
 }
 
 
-.main-content{
-    margin-left:250px;
-    width: calc(100%-250px);
+.main-content {
+    margin-left: 250px;
+    width: calc(100% - 250px);
 }
 
 
@@ -170,7 +167,7 @@ h1{
 
     padding: 0 35px;
 
-    border-bottom:1px solid #e5e7eb;;
+    border-bottom:1px solid #e5e7eb;
 
 }
 
@@ -316,7 +313,7 @@ h1{
 }
 
 
-.student-icon{
+.students-icon{
     background-color: #eef2ff;
 }
 
@@ -486,12 +483,12 @@ td{
 ========================= */
 
 
-.summary-items{
-    margin-bottom:25px;
+.summary-item {
+    margin-bottom: 25px;
 }
 
 
-.summary-lable{
+.summary-label{
       display: flex;
 
     justify-content: space-between;
@@ -501,7 +498,7 @@ td{
     font-size: 13px;
 }
 
-.summary-label span {
+.summary-label strong {
     color: #6b7280;
 }
 
@@ -510,5 +507,256 @@ td{
     font-size: 13px;
 }
 
+.status.partial {
+    background: #fef3c7;
+    color: #b45309;
+}
 
 
+
+
+
+
+/* =========================
+   STUDENTS PAGE
+========================= */
+
+.students-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.students-top h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.students-top p {
+    color: #6b7280;
+    font-size: 13px;
+}
+
+
+/* Add Student Button */
+
+.add-student-btn {
+    border: none;
+
+    background: #4f46e5;
+    color: white;
+
+    padding: 11px 18px;
+
+    border-radius: 7px;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.add-student-btn:hover {
+    background: #4338ca;
+}
+
+.add-student-btn span {
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+
+/* =========================
+   SEARCH & FILTERS
+========================= */
+
+.student-filters {
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 10px;
+
+    padding: 15px;
+
+    display: flex;
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+
+/* Search Box */
+
+.search-box {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 7px;
+
+    padding: 0 12px;
+
+    background: white;
+}
+
+.search-box span {
+    font-size: 13px;
+
+    margin-right: 8px;
+}
+
+.search-box input {
+    width: 100%;
+
+    border: none;
+
+    outline: none;
+
+    padding: 10px 0;
+
+    font-size: 12px;
+}
+
+
+/* Dropdowns */
+
+.student-filters select {
+    width: 160px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 7px;
+
+    padding: 10px;
+
+    background: white;
+
+    font-size: 12px;
+
+    outline: none;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   STUDENTS TABLE
+========================= */
+
+.students-card {
+    padding: 0;
+
+    overflow: hidden;
+}
+
+.students-table th {
+    background: #f9fafb;
+
+    white-space: nowrap;
+}
+
+.students-table td {
+    white-space: nowrap;
+}
+
+.students-table tbody tr:hover {
+    background: #fafafa;
+}
+
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+.action-btn {
+    border: none;
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    margin-right: 4px;
+}
+
+.action-btn.edit {
+    background: #eef2ff;
+}
+
+.action-btn.delete {
+    background: #fef2f2;
+}
+
+.action-btn:hover {
+    opacity: 0.8;
+}
+
+
+/* =========================
+   STUDENTS FOOTER
+========================= */
+
+.students-footer {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 15px 20px;
+
+    border-top: 1px solid #e5e7eb;
+}
+
+.students-footer > span {
+    font-size: 11px;
+
+    color: #6b7280;
+}
+
+
+/* =========================
+   PAGINATION
+========================= */
+
+.pagination {
+    display: flex;
+
+    gap: 5px;
+}
+
+.pagination button {
+    width: 30px;
+    height: 30px;
+
+    border: 1px solid #e5e7eb;
+
+    background: white;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    font-size: 11px;
+}
+
+.pagination button:hover {
+    background: #f3f4f6;
+}
+
+.pagination button.current {
+    background: #4f46e5;
+
+    color: white;
+
+    border-color: #4f46e5;
+}
