@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>School Fee System</title>
+
+    <link rel="stylesheet" href="styls.css">
+
+</head>
+
+
+<body>
+
+
+    <div class="app">
+
+
+        <!-- ================= SIDEBAR ================= -->
+
+        <div class="sidebar">
+
+
+            <div class="logo">
+
+                <div class="logo-icon">S</div>
+
+                <div>
+
+                    <h2>SchoolFees</h2>
+
+                    <span>Management System</span>
+
+                </div>
+
+            </div>
+
+
+
+            <nav class="navigation">
+
+
+                <p class="menu-title">MAIN MENU</p>
+
+
+                <a href="index.html" class="nav-link">
+
+                    <span>▣</span>
+
+                    Dashboard
+
+                </a>
+
+
+                <a href="students.html" class="nav-link">
+
+                    <span>▣</span>
+
+                    Students
+
+                </a>
+
+
+                <a href="fee.html" class="nav-link active">
+
+                    <span>▣</span>
+
+                    Fee Collection
+
+                </a>
+
+
+                <a href="receipts.html" class="nav-link">
+
+                    <span>▣</span>
+
+                    Receipts
+
+                </a>
+
+
+                <p class="menu-title">OTHERS</p>
+
+
+                <a href="#" class="nav-link">
+
+                    <span>S</span>
+
+                    Settings
+
+                </a>
+
+
+            </nav>
+
+
+
+            <div class="sidebar-bottom">
+
+                <div class="admin-avatar">A</div>
+
+
+                <div>
+
+                    <strong>Administration</strong>
+
+                    <small>Admin</small>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ================= MAIN CONTENT ================= -->
+
+        <div class="main-content">
+
+
+            <!-- HEADER -->
+
+            <header class="top-header">
+
+
+                <div>
+
+                    <h1>Fee Management</h1>
+
+                    <p>Manage student fees and outstanding payments</p>
+
+                </div>
+
+
+
+                <div class="header-right">
+
+
+                    <button class="notification-btn">
+
+                        🔔
+
+                    </button>
+
+
+
+                    <div class="profile">
+
+                        <div class="profile-avatar">
+
+                            A
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>Administrator</strong>
+
+                            <small>Admin</small>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </header>
+
+
+
+            <!-- ================= FEE CONTENT ================= -->
+
+            <section class="dashboard">
+
+
+                <!-- STATISTICS -->
+
+                <div class="stats-grid">
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-info">
+
+                            <p>Total Fees</p>
+
+                            <h2>₹12,50,000</h2>
+
+                            <span class="positive">
+                                ↑ 10% this month
+                            </span>
+
+                        </div>
+
+
+                        <div class="stat-icon fees-icon">
+
+                            💰
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-info">
+
+                            <p>Fees Collected</p>
+
+                            <h2>₹9,20,000</h2>
+
+                            <span class="positive">
+                                ↑ 8% this month
+                            </span>
+
+                        </div>
+
+
+                        <div class="stat-icon fees-icon">
+
+                            ✅
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-info">
+
+                            <p>Pending Fees</p>
+
+                            <h2>₹3,30,000</h2>
+
+                            <span class="negative">
+                                ↓ 5% this month
+                            </span>
+
+                        </div>
+
+
+                        <div class="stat-icon pending-icon">
+
+                            ⏳
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-info">
+
+                            <p>Collection Rate</p>
+
+                            <h2>73.6%</h2>
+
+                            <span class="positive">
+                                ↑ 6% this month
+                            </span>
+
+                        </div>
+
+
+                        <div class="stat-icon receipt-icon">
+
+                            📊
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ================= FEE DETAILS ================= -->
+
+                <div class="card fee-details-card">
+
+
+                    <div class="card-header">
+
+
+                        <div>
+
+                            <h3>Student Fee Details</h3>
+
+                            <p>Track fees collected and pending</p>
+
+                        </div>
+
+
+                        <button class="collect-fee-btn">
+
+                            + Collect Fee
+
+                        </button>
+
+
+                    </div>
+
+
+
+                    <!-- SEARCH / FILTER -->
+
+                    <div class="fee-filters">
+
+
+                        <div class="fee-search">
+
+                            🔍
+
+                            <input
+                                type="text"
+                                placeholder="Search student..."
+                            >
+
+                        </div>
+
+
+                        <select>
+
+                            <option>All Classes</option>
+
+                            <option>10th</option>
+
+                            <option>9th</option>
+
+                            <option>8th</option>
+
+                            <option>7th</option>
+
+                        </select>
+
+
+                        <select>
+
+                            <option>All Status</option>
+
+                            <option>Paid</option>
+
+                            <option>Partial</option>
+
+                            <option>Pending</option>
+
+                        </select>
+
+
+                    </div>
+
+
+
+                    <!-- TABLE -->
+
+                    <div class="table-container">
+
+
+                        <table>
+
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>#</th>
+
+                                    <th>Student ID</th>
+
+                                    <th>Student</th>
+
+                                    <th>Class</th>
+
+                                    <th>Total Fee</th>
+
+                                    <th>Paid</th>
+
+                                    <th>Pending</th>
+
+                                    <th>Status</th>
+
+                                    <th>Action</th>
+
+                                </tr>
+
+                            </thead>
+
+
+
+                            <tbody>
+
+
+                                <tr>
+
+                                    <td>1</td>
+
+                                    <td>ST001</td>
+
+                                    <td>
+
+                                        <div class="student">
+
+                                            <div class="student-avatar">
+
+                                                RK
+
+                                            </div>
+
+                                            <span>Rahul Kumar</span>
+
+                                        </div>
+
+                                    </td>
+
+                                    <td>10th</td>
+
+                                    <td>₹50,000</td>
+
+                                    <td>₹50,000</td>
+
+                                    <td>₹0</td>
+
+                                    <td>
+
+                                        <span class="status paid">
+
+                                            Paid
+
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+
+                                        <button class="action-btn edit">
+
+                                            ✏️
+
+                                        </button>
+
+                                        <button class="action-btn delete">
+
+                                            🗑️
+
+                                        </button>
+
+                                    </td>
+
+                                </tr>
+
+
+
+                                <tr>
+
+                                    <td>2</td>
+
+                                    <td>ST002</td>
+
+                                    <td>
+
+                                        <div class="student">
+
+                                            <div class="student-avatar">
+
+                                                AS
+
+                                            </div>
+
+                                            <span>Ananya Sharma</span>
+
+                                        </div>
+
+                                    </td>
+
+                                    <td>9th</td>
+
+                                    <td>₹45,000</td>
+
+                                    <td>₹30,000</td>
+
+                                    <td>₹15,000</td>
+
+                                    <td>
+
+                                        <span class="status partial">
+
+                                            Partial
+
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+
+                                        <button class="action-btn edit">
+
+                                            ✏️
+
+                                        </button>
+
+                                        <button class="action-btn delete">
+
+                                            🗑️
+
+                                        </button>
+
+                                    </td>
+
+                                </tr>
+
+
+
+                                <tr>
+
+                                    <td>3</td>
+
+                                    <td>ST003</td>
+
+                                    <td>
+
+                                        <div class="student">
+
+                                            <div class="student-avatar">
+
+                                                VK
+
+                                            </div>
+
+                                            <span>Vijay Kumar</span>
+
+                                        </div>
+
+                                    </td>
+
+                                    <td>8th</td>
+
+                                    <td>₹40,000</td>
+
+                                    <td>₹20,000</td>
+
+                                    <td>₹20,000</td>
+
+                                    <td>
+
+                                        <span class="status partial">
+
+                                            Partial
+
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+
+                                        <button class="action-btn edit">
+
+                                            ✏️
+
+                                        </button>
+
+                                        <button class="action-btn delete">
+
+                                            🗑️
+
+                                        </button>
+
+                                    </td>
+
+                                </tr>
+
+
+
+                                <tr>
+
+                                    <td>4</td>
+
+                                    <td>ST004</td>
+
+                                    <td>
+
+                                        <div class="student">
+
+                                            <div class="student-avatar">
+
+                                                PS
+
+                                            </div>
+
+                                            <span>Priya Singh</span>
+
+                                        </div>
+
+                                    </td>
+
+                                    <td>7th</td>
+
+                                    <td>₹35,000</td>
+
+                                    <td>₹35,000</td>
+
+                                    <td>₹0</td>
+
+                                    <td>
+
+                                        <span class="status paid">
+
+                                            Paid
+
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+
+                                        <button class="action-btn edit">
+
+                                            ✏️
+
+                                        </button>
+
+                                        <button class="action-btn delete">
+
+                                            🗑️
+
+                                        </button>
+
+                                    </td>
+
+                                </tr>
+
+
+                            </tbody>
+
+
+                        </table>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <script src="app.js"></script>
+
+
+</body>
+
+</html>

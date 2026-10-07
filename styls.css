@@ -947,3 +947,525 @@ td{
 .save-student-btn:hover {
     background: #4338ca;
 }
+/* =========================================
+   FEE MANAGEMENT PAGE
+========================================= */
+
+
+/* Fee details card */
+
+.fee-details-card {
+    margin-top: 25px;
+}
+
+
+/* Collect Fee button */
+
+.collect-fee-btn {
+    background: #6c4df6;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 7px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.collect-fee-btn:hover {
+    background: #5939df;
+}
+
+
+/* =========================================
+   FEE FILTERS
+========================================= */
+
+.fee-filters {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+
+.fee-search {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 7px;
+
+    padding: 0 14px;
+
+    background: white;
+
+    color: #777;
+}
+
+
+.fee-search input {
+    width: 100%;
+
+    border: none;
+
+    outline: none;
+
+    padding: 12px 0;
+
+    font-size: 14px;
+}
+
+
+.fee-filters select {
+
+    padding: 12px 15px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 7px;
+
+    background: white;
+
+    font-size: 14px;
+
+    outline: none;
+
+    min-width: 135px;
+
+}
+
+
+.fee-filters select:focus {
+
+    border-color: #6c4df6;
+
+}
+
+
+/* =========================================
+   FEE TABLE
+========================================= */
+
+.fee-details-card table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+}
+
+
+.fee-details-card th {
+
+    text-align: left;
+
+    padding: 14px 10px;
+
+    font-size: 13px;
+
+    color: #777;
+
+    font-weight: 600;
+
+    border-bottom: 1px solid #eee;
+
+}
+
+
+.fee-details-card td {
+
+    padding: 15px 10px;
+
+    border-bottom: 1px solid #eee;
+
+    font-size: 14px;
+
+}
+
+
+.fee-details-card tbody tr:hover {
+
+    background: #fafafa;
+
+}
+
+
+/* =========================================
+   STUDENT NAME
+========================================= */
+
+.fee-details-card .student {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+
+.fee-details-card .student-avatar {
+
+    width: 32px;
+
+    height: 32px;
+
+    border-radius: 50%;
+
+    background: #e9e4ff;
+
+    color: #6c4df6;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+}
+
+
+/* =========================================
+   FEE STATUS
+========================================= */
+
+.status.partial {
+
+    background: #fff4d6;
+
+    color: #b77900;
+
+}
+
+
+/* =========================================
+   ACTION BUTTONS
+========================================= */
+
+.action-btn {
+
+    border: none;
+
+    width: 34px;
+
+    height: 34px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    margin-right: 5px;
+
+}
+
+
+.action-btn.edit {
+
+    background: #eef2ff;
+
+}
+
+
+.action-btn.delete {
+
+    background: #fff0f0;
+
+}
+
+
+/* =========================================
+   FEE ICON
+========================================= */
+
+.fees-icon {
+
+    background: #fff1d9;
+
+}
+
+
+/* =========================================
+   FEE TABLE RESPONSIVE
+   We can improve this later
+========================================= */
+
+.table-container {
+
+    overflow-x: auto;
+
+}
+/* =========================================
+   RECEIPTS PAGE
+========================================= */
+
+
+/* Receipt card */
+
+.receipt-list-card {
+    margin-top: 25px;
+}
+
+
+/* =========================================
+   GENERATE RECEIPT BUTTON
+========================================= */
+
+.generate-receipt-btn {
+
+    background: #6c4df6;
+
+    color: white;
+
+    border: none;
+
+    padding: 12px 20px;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+}
+
+
+.generate-receipt-btn:hover {
+
+    background: #5939df;
+
+}
+
+
+/* =========================================
+   RECEIPT FILTERS
+========================================= */
+
+.receipt-filters {
+
+    display: flex;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+
+}
+
+
+/* Search box */
+
+.receipt-search {
+
+    flex: 1;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 7px;
+
+    padding: 0 14px;
+
+    background: white;
+
+    color: #777;
+
+}
+
+
+.receipt-search input {
+
+    width: 100%;
+
+    border: none;
+
+    outline: none;
+
+    padding: 12px 0;
+
+    font-size: 14px;
+
+}
+
+
+/* Dropdowns */
+
+.receipt-filters select {
+
+    padding: 12px 15px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 7px;
+
+    background: white;
+
+    font-size: 14px;
+
+    outline: none;
+
+    min-width: 140px;
+
+}
+
+
+.receipt-filters select:focus {
+
+    border-color: #6c4df6;
+
+}
+
+
+/* =========================================
+   RECEIPT TABLE
+========================================= */
+
+.receipt-list-card table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+}
+
+
+.receipt-list-card th {
+
+    text-align: left;
+
+    padding: 14px 10px;
+
+    font-size: 13px;
+
+    color: #777;
+
+    font-weight: 600;
+
+    border-bottom: 1px solid #eee;
+
+}
+
+
+.receipt-list-card td {
+
+    padding: 15px 10px;
+
+    border-bottom: 1px solid #eee;
+
+    font-size: 14px;
+
+    color: #333;
+
+}
+
+
+.receipt-list-card tbody tr:hover {
+
+    background: #fafafa;
+
+}
+
+
+/* =========================================
+   STUDENT NAME
+========================================= */
+
+.receipt-list-card .student {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+
+.receipt-list-card .student-avatar {
+
+    width: 32px;
+
+    height: 32px;
+
+    border-radius: 50%;
+
+    background: #e9e4ff;
+
+    color: #6c4df6;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+}
+
+
+/* =========================================
+   RECEIPT ACTION BUTTONS
+========================================= */
+
+.receipt-list-card .action-btn {
+
+    border: none;
+
+    width: 34px;
+
+    height: 34px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    margin-right: 5px;
+
+}
+
+
+.receipt-list-card .action-btn.view {
+
+    background: #eef2ff;
+
+}
+
+
+.receipt-list-card .action-btn.print {
+
+    background: #f1f8f4;
+
+}
+
+
+.receipt-list-card .action-btn:hover {
+
+    opacity: 0.8;
+
+}
+
+
+/* =========================================
+   TABLE SCROLL
+========================================= */
+
+.receipt-list-card .table-container {
+
+    overflow-x: auto;
+
+}
