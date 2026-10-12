@@ -4,8 +4,11 @@
 
 
     const studentForm = document.getElementById("studentForm");
+     
+    
 
-
+    
+        
 
     const savedStudent = localStorage.getItem("students");
 
@@ -145,14 +148,27 @@ if(editStudent && studentForm){
             editButton.type="button";
 
 
-                editButton.addEventListener("click", function() {
+                // editButton.addEventListener("click", function() {
 
-                    console.log("Modify clicked:", student);
+                //     console.log("Modify clicked:", student);
 
-                    localStorage.setItem("editStudent", JSON.stringify(student));
+                //     localStorage.setItem("editStudent", JSON.stringify(student));
 
-                    window.location.href="add-student.html";
-                });
+                //     window.location.href="add-student.html";
+                //     console.log("Edit student saved:", localStorage.getItem("editStudent"));    
+                // });
+
+
+                
+            editButton.addEventListener("click", function() {
+                console.log("Modify clicked:", student);
+
+                localStorage.setItem("editStudent", JSON.stringify(student));
+
+                console.log("Saved data:", localStorage.getItem("editStudent"));
+
+                window.location.href = "add-student.html";
+            });
 
             
 
@@ -206,6 +222,8 @@ if(editStudent && studentForm){
             console.log("save student button clicked");
             const studentName = document.getElementById("studentName").value;
             const studentId = document.getElementById("studentId").value;
+
+
             const dob = document.getElementById("dob").value;
             const gender = document.getElementById("gender").value;
 
@@ -236,15 +254,33 @@ if(editStudent && studentForm){
     };
 
 
+    
+const editStudentData = localStorage.getItem("editStudent");
+const oldStudent = editStudentData
+    ? JSON.parse(editStudentData)
+    : null;
+
+const duplicateStudent = students.some((s) =>
+    s.id === studentId &&
+    (!oldStudent || s.id !== oldStudent.id)
+);
+
+if (duplicateStudent) {
+    alert("This Student ID already exists!");
+    return;
+}
+
+
+
   const editStudent = localStorage.getItem("editStudent");
 
-if(editStudent){
+if(editStudent && studentForm){
 
     const oldStudent = JSON.parse(editStudent);
 
     console.log("Old student ID:", oldStudent.id);
 console.log("All student IDs:");
-
+    
 
     const studentIndex = students.findIndex((s)=>{
         return s.id === oldStudent.id;
@@ -303,3 +339,73 @@ else{
 
     // // console.log(studentAgain);
     // // console.log(studentAgain.name);
+
+
+
+
+const feeTableBody = document.getElementById("feeTableBody");
+
+// check whether the table exist
+
+console.log("Fee table body:", feeTableBody);
+
+if(feeTableBody){
+
+    const savedStudent = localStorage.getItem("students"); // converst data in to javaScrit while retrving from localStorage
+
+    const studentList = savedStudent ?
+                       JSON.parse(savedStudent):[];
+
+    studentList.forEach((student,index)=>{
+        const  row = document.createElement("tr");
+
+        const totalFee = Number(student.totalFee) || 0;
+        const paid = Number(student.initialPayment) || 0;
+        const pending = totalFee - paid;
+
+        let status;
+
+        if(paid >= totalFee && totalFee > 0){
+            status ="paid";
+        }
+            else if (paid > 0) {
+            status = "Partial";
+        } 
+        else {
+            status = "Pending";
+        }
+
+
+        // row.innerHTML = `
+        // <td>${index + 1}</td>
+        // <td>${student.id}</td>
+        // <td>${student.name}</td>
+        // `
+
+         row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${student.id}</td>
+            <td>
+                <div class="student">
+                    <div class="student-avatar">
+                        ${student.name ? student.name.substring(0, 2).toUpperCase() : "NA"}
+                    </div>
+                    <span>${student.name || "Unnamed Student"}</span>
+                </div>
+            </td>
+            <td>${student.className || ""}</td>
+            <td>₹${totalFee.toLocaleString("en-IN")}</td>
+            <td>₹${paid.toLocaleString("en-IN")}</td>
+            <td>₹${pending.toLocaleString("en-IN")}</td>
+            <td><span class="status ${status.toLowerCase()}">${status}</span></td>
+            <td>—</td>
+        `;
+
+
+        feeTableBody.appendChild(row);
+     });
+
+
+
+    
+}
