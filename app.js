@@ -406,6 +406,222 @@ if(feeTableBody){
      });
 
 
-
+     const feeSearchInput = document.getElementById("feeSearchInput");
+     const feeStatusFilter=document.getElementById("feeStatusFilter");
+     const feeClassFilter = document.getElementById("feeClassFilter");
     
+
+     function  filterFeeTable(){
+
+
+        const searchValue = feeSearchInput.value.toLowerCase().trim();
+        const selectedClass = feeStatusFilter.value;
+        const selectedStatus = feeClassFilter.value;
+
+
+        const rows = feeTableBody.querySelectorAll("tr");
+
+            rows.forEach(function (row) {
+            const studentId = row.cells[1].textContent.toLowerCase();
+            const studentName = row.cells[2].textContent.toLowerCase();
+            const studentClass = row.cells[3].textContent.trim();
+            const studentStatus = row.cells[7].textContent.toLowerCase().trim();
+            
+            const matchesSearch = 
+                  studentId.includes(searchValue) ||
+                  studentName.includes(searchValue);
+
+
+            const matchesClass = 
+                selectedClass === "all" ||
+                studentClass === selectedClass;
+
+
+        const matchesStatus =
+            selectedStatus === "all" ||
+            studentStatus === selectedStatus;
+
+
+            row.style.display =
+                    matchesSearch && matchesClass && matchesStatus ? "" : "none";
+        });
+    }
+
+
+   if (feeTableBody && feeSearchInput && feeClassFilter && feeStatusFilter) {
+    feeSearchInput.addEventListener("input", filterFeeTable);
+    feeClassFilter.addEventListener("change", filterFeeTable);
+    feeStatusFilter.addEventListener("change", filterFeeTable);
+   }
+}
+
+
+
+const collectFeeButton = document.querySelector(".collect-fee-btn");
+const collectFeeForm = document.getElementById("collectFeeForm");
+const closeFeeForm = document.getElementById("closeFeeForm");
+const cancelFeeForm = document.getElementById("cancelFeeForm");
+
+if (collectFeeButton && collectFeeForm) {
+    collectFeeButton.addEventListener("click", function () {
+        collectFeeForm.style.display = "block";
+    });
+}
+
+if (closeFeeForm && collectFeeForm) {
+    closeFeeForm.addEventListener("click", function () {
+        collectFeeForm.style.display = "none";
+    });
+}
+
+if (cancelFeeForm && collectFeeForm) {
+    cancelFeeForm.addEventListener("click", function () {
+        collectFeeForm.style.display = "none";
+    });
+}
+
+const paymentStudent = document.getElementById("paymentStudent");
+
+if (paymentStudent) {
+    const savedStudents = localStorage.getItem("students");
+    const studentList = savedStudents
+        ? JSON.parse(savedStudents)
+        : [];
+
+    studentList.forEach(function (student) {
+        const option = document.createElement("option");
+
+        option.value = student.id;
+        option.textContent = student.name + " (" + student.id + ")";
+
+        paymentStudent.appendChild(option);
+    });
+}
+
+
+
+const feePaymentForm = document.getElementById("feePaymentForm");
+const paymentAmount = document.getElementById("paymentAmount");
+
+if (feePaymentForm && paymentAmount) {
+    feePaymentForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const selectedId = paymentStudent.value;
+        const amount = Number(paymentAmount.value);
+
+        const savedStudents = localStorage.getItem("students");
+        const studentList = savedStudents
+            ? JSON.parse(savedStudents)
+            : [];
+
+        const student = studentList.find(function (item) {
+            return String(item.id) === selectedId;
+        });
+
+        if (!student) {
+            alert("Please select a student.");
+            return;
+        }
+
+        const totalFee = Number(student.totalFee) || 0;
+        const alreadyPaid = Number(student.initialPayment) || 0;
+        const pending = totalFee - alreadyPaid;
+
+        if (amount <= 0) {
+            alert("Enter a valid payment amount.");
+            return;
+        }
+
+        if (amount > pending) {
+            alert("Payment cannot exceed the pending fee of ₹" + pending);
+            return;
+        }
+
+        // alert("Payment amount validated successfully!");
+
+        const savedpayments = localStorage.getItem("feePayments");
+        const paymentList = savedpayments?JSON.parse(savedpayments):[];
+
+        paymentList.push({
+            studentId: student.id,
+            studentName: student.name,
+            amount : amount,
+            method : document.getElementById("paymentMethod").value,
+            date:new Date().toISOString()
+        });
+
+        localStorage.setItem("feePayment", JSON.stringify(paymentList));
+
+
+        feeTableBody.innerHTML = "";
+
+        studentList.forEach(function(student,index){
+            //her i am overriding the current row
+
+            const row = document.createElement("tr");
+
+
+            const totalFee = Number(student.totalFee) || 0;
+
+            const intialPayment = Number(student.intialPayment) || 0;
+
+
+            //everytime i am suming whenever he pays
+            const additionalPayments = paymentList
+              .filter((payment)=>{
+                return String(payment.studentId)===String(student.id);
+              });
+              reduce((sum,payment)=>{
+                return sum+Number(payment.amount);
+              },0);
+
+              const paid = intialPayment+additionalPayments;
+
+              const pending = Math.max(0,totalFee-paid);
+
+
+              let status;
+
+              if(paid >= totalFee && totalFee > 0){
+                status = "paid";
+              } else if(paid > 0){
+                status  = "partial";
+              }
+              else{
+                status = "pending";
+              }
+          
+            row.innerHtml =`
+              <td>${index+1}</td>
+              <td>${student.id}</td>
+            <td>
+                <div class="student">
+                    <div class="student-avatar">
+
+                ${student.name ? student.name.substring(0, 2).toUpperCase() : "NA"}
+                </div>
+                <span>${student.name || "Unnamed Student"}</span>
+            </div>
+        </td>
+        <td>${student.className || ""}</td>
+        <td>₹${totalFee.toLocaleString("en-IN")}</td>
+        <td>₹${paid.toLocaleString("en-IN")}</td>
+        <td>₹${pending.toLocaleString("en-IN")}</td>
+                 <td><span class="status ${status}">${status.charAt(0).toUpperCase() + status.slice(1)}</span></td>
+        <td>—</td>`
+        });
+
+          feeTableBody.appendChild(row);
+
+    });
+    
+
+
+
+
+
+
+feePaymentForm.reset();
+collectFeeForm.style.display = "none";
 }
