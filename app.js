@@ -359,21 +359,36 @@ if(feeTableBody){
     studentList.forEach((student,index)=>{
         const  row = document.createElement("tr");
 
+       
         const totalFee = Number(student.totalFee) || 0;
-        const paid = Number(student.initialPayment) || 0;
-        const pending = totalFee - paid;
+        const initialPayment = Number(student.initialPayment) || 0;
+
+        const savedPayments = localStorage.getItem("feePayments");
+        const paymentList = savedPayments
+            ? JSON.parse(savedPayments)
+            : [];
+
+        const additionalPayments = paymentList
+            .filter(function (payment) {
+                return String(payment.studentId) === String(student.id);
+            })
+            .reduce(function (sum, payment) {
+                return sum + Number(payment.amount);
+            }, 0);
+
+        const paid = initialPayment + additionalPayments;
+        const pending = Math.max(0, totalFee - paid);
 
         let status;
 
-        if(paid >= totalFee && totalFee > 0){
-            status ="paid";
+        if (paid >= totalFee && totalFee > 0) {
+            status = "paid";
+        } else if (paid > 0) {
+            status = "partial";
+        } else {
+            status = "pending";
         }
-            else if (paid > 0) {
-            status = "Partial";
-        } 
-        else {
-            status = "Pending";
-        }
+
 
 
         // row.innerHTML = `
@@ -415,8 +430,8 @@ if(feeTableBody){
 
 
         const searchValue = feeSearchInput.value.toLowerCase().trim();
-        const selectedClass = feeStatusFilter.value;
-        const selectedStatus = feeClassFilter.value;
+        const selectedClass = feeClassFilter.value;
+        const selectedStatus = feeStatusFilter.value;
 
 
         const rows = feeTableBody.querySelectorAll("tr");
@@ -499,16 +514,16 @@ if (paymentStudent) {
 }
 
 
-
 const feePaymentForm = document.getElementById("feePaymentForm");
 const paymentAmount = document.getElementById("paymentAmount");
 
-if (feePaymentForm && paymentAmount) {
+if (feePaymentForm && paymentAmount && paymentStudent) {
     feePaymentForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
         const selectedId = paymentStudent.value;
         const amount = Number(paymentAmount.value);
+        const method = document.getElementById("paymentMethod").value;
 
         const savedStudents = localStorage.getItem("students");
         const studentList = savedStudents
@@ -516,7 +531,7 @@ if (feePaymentForm && paymentAmount) {
             : [];
 
         const student = studentList.find(function (item) {
-            return String(item.id) === selectedId;
+            return String(item.id) === String(selectedId);
         });
 
         if (!student) {
@@ -524,104 +539,243 @@ if (feePaymentForm && paymentAmount) {
             return;
         }
 
-        const totalFee = Number(student.totalFee) || 0;
-        const alreadyPaid = Number(student.initialPayment) || 0;
-        const pending = totalFee - alreadyPaid;
-
-        if (amount <= 0) {
+        if (!Number.isFinite(amount) || amount <= 0) {
             alert("Enter a valid payment amount.");
             return;
         }
+
+        if (!method) {
+            alert("Please select a payment method.");
+            return;
+        }
+
+        const totalFee = Number(student.totalFee) || 0;
+        const initialPayment = Number(student.initialPayment) || 0;
+
+        const savedPayments = localStorage.getItem("feePayments");
+        const paymentList = savedPayments
+            ? JSON.parse(savedPayments)
+            : [];
+
+        const additionalPayments = paymentList
+            .filter(function (payment) {
+                return String(payment.studentId) === String(student.id);
+            })
+            .reduce(function (sum, payment) {
+                return sum + Number(payment.amount);
+            }, 0);
+
+        const pending = Math.max(
+            0,
+            totalFee - initialPayment - additionalPayments
+        );
 
         if (amount > pending) {
             alert("Payment cannot exceed the pending fee of ₹" + pending);
             return;
         }
 
-        // alert("Payment amount validated successfully!");
-
-        const savedpayments = localStorage.getItem("feePayments");
-        const paymentList = savedpayments?JSON.parse(savedpayments):[];
-
         paymentList.push({
+            receiptId: "REC-" + Date.now(),
             studentId: student.id,
             studentName: student.name,
-            amount : amount,
-            method : document.getElementById("paymentMethod").value,
-            date:new Date().toISOString()
+            amount: amount,
+            method: method,
+            date: new Date().toISOString()
         });
 
-        localStorage.setItem("feePayment", JSON.stringify(paymentList));
+        localStorage.setItem(
+            "feePayments",
+            JSON.stringify(paymentList)
+        );
+
+        alert("Payment recorded successfully!");
+
+        // Reload the page to recalculate the fee table.
+        window.location.reload();
+
+    });
+}
 
 
-        feeTableBody.innerHTML = "";
+// ================= RECEIPTS PAGE =================
 
-        studentList.forEach(function(student,index){
-            //her i am overriding the current row
+const receiptTableBody = document.getElementById("receiptTableBody");
 
-            const row = document.createElement("tr");
+if (receiptTableBody) {
+    console.log("Receipts page detected!");
 
+    const savedPayments = localStorage.getItem("feePayments");
+    const paymentList = savedPayments
+        ? JSON.parse(savedPayments)
+        : [];
 
-            const totalFee = Number(student.totalFee) || 0;
-
-            const intialPayment = Number(student.intialPayment) || 0;
-
-
-            //everytime i am suming whenever he pays
-            const additionalPayments = paymentList
-              .filter((payment)=>{
-                return String(payment.studentId)===String(student.id);
-              });
-              reduce((sum,payment)=>{
-                return sum+Number(payment.amount);
-              },0);
-
-              const paid = intialPayment+additionalPayments;
-
-              const pending = Math.max(0,totalFee-paid);
+    console.log("Payments for receipts:", paymentList);
 
 
-              let status;
+    paymentList.forEach((payment,index)=>{
+        const row= document.createElement("tr");
 
-              if(paid >= totalFee && totalFee > 0){
-                status = "paid";
-              } else if(paid > 0){
-                status  = "partial";
-              }
-              else{
-                status = "pending";
-              }
-          
-            row.innerHtml =`
-              <td>${index+1}</td>
-              <td>${student.id}</td>
+        const studentList = JSON.parse(localStorage.getItem("students") || "[]");
+
+
+        const student = studentList.find(function(item){
+            return String(item.id)==String(payment.studentId);
+        });
+
+         const receiptId = payment.receiptId ||
+        (payment.date ? "REC-" + new Date(payment.date).getTime() : "—");
+        const paymentDate = payment.date
+    ? new Date(payment.date).toLocaleDateString("en-IN")
+    : "—";
+
+
+        row.innerHTML = `
+         <td>${index+1}</td>
+         <td>${receiptId}</td>
+         <td><div class="student">
+          <div class="student-avatar">
+                ${(payment.studentName || "NA").substring(0,2).toUpperCase()}
+          </div>
+           <span>${payment.studentName || "Unknown Student"}</span>
+         </div>
+         
+         </td>
+         <td>${student ? student.className : "—"}</td>
+         <td>₹${Number(payment.amount).toLocaleString("en-IN")}</td>
+        <td>${paymentDate}</td>
+        <td>${payment.method || "—"}</td>
+         <td><span class="status paid">Generated</span></td>
+          <td>—</td>
+
+        `;
+
+        receiptTableBody.appendChild(row);
+    });
+}
+
+
+
+ // ================= DASHBOARD RECENT PAYMENTS =================
+
+const recentPaymentsBody = document.getElementById("recentPaymentsBody");
+
+if (recentPaymentsBody) {
+    const payments = JSON.parse(
+        localStorage.getItem("feePayments") || "[]"
+    );
+
+    const students = JSON.parse(
+        localStorage.getItem("students") || "[]"
+    );
+
+    // Show newest payments first
+    payments.sort(function (a, b) {
+        return new Date(b.date) - new Date(a.date);
+    });
+
+    recentPaymentsBody.innerHTML = "";
+
+    payments.slice(0, 6).forEach(function (payment) {
+        const student = students.find(function (item) {
+            return String(item.id) === String(payment.studentId);
+        });
+
+        const row = document.createElement("tr");
+
+        const paymentDate = payment.date
+            ? new Date(payment.date).toLocaleDateString("en-IN")
+            : "—";
+
+        row.innerHTML = `
             <td>
                 <div class="student">
                     <div class="student-avatar">
-
-                ${student.name ? student.name.substring(0, 2).toUpperCase() : "NA"}
+                        ${(payment.studentName || "NA").substring(0, 2).toUpperCase()}
+                    </div>
+                    <span>${payment.studentName || "Unknown Student"}</span>
                 </div>
-                <span>${student.name || "Unnamed Student"}</span>
-            </div>
-        </td>
-        <td>${student.className || ""}</td>
-        <td>₹${totalFee.toLocaleString("en-IN")}</td>
-        <td>₹${paid.toLocaleString("en-IN")}</td>
-        <td>₹${pending.toLocaleString("en-IN")}</td>
-                 <td><span class="status ${status}">${status.charAt(0).toUpperCase() + status.slice(1)}</span></td>
-        <td>—</td>`
-        });
+            </td>
+            <td>${student ? student.className : "—"}</td>
+            <td>₹${Number(payment.amount).toLocaleString("en-IN")}</td>
+            <td>${paymentDate}</td>
+            <td>
+                <span class="status paid">Paid</span>
+            </td>
+        `;
 
-          feeTableBody.appendChild(row);
-
+        recentPaymentsBody.appendChild(row);
     });
+}
+
+
+
+
+
+
+
+
+
+
+ // ================= DASHBOARD STATISTICS =================
+
+const totalStudentsCount = document.getElementById("totalStudentsCount");
+const totalFeesCollected = document.getElementById("totalFeesCollected");
+const pendingFeesAmount = document.getElementById("pendingFeesAmount");
+const receiptsGeneratedCount = document.getElementById("receiptsGeneratedCount");
+
+if (totalStudentsCount) {
+    const students = JSON.parse(localStorage.getItem("students") || "[]");
+    const payments = JSON.parse(localStorage.getItem("feePayments") || "[]");
+
+    // Total number of students
+    totalStudentsCount.textContent = students.length;
+
+    // Total fees collected from initial and additional payments
+    const initialPayments = students.reduce(function (sum, student) {
+        return sum + Number(student.initialPayment || 0);
+    }, 0);
+
+    const additionalPayments = payments.reduce(function (sum, payment) {
+        return sum + Number(payment.amount || 0);
+    }, 0);
+
+    const collected = initialPayments + additionalPayments;
+
+    // Total fees expected from all students
+    const totalFees = students.reduce(function (sum, student) {
+        return sum + Number(student.totalFee || 0);
+    }, 0);
+
+
     
+const dashboardProgressFill = document.getElementById("dashboardProgressFill");
+const dashboardProgressText = document.getElementById("dashboardProgressText");
+
+const progressPercentage = totalFees > 0
+    ? Math.min(100, (collected / totalFees) * 100)
+    : 0;
+
+if (dashboardProgressFill) {
+    dashboardProgressFill.style.width = progressPercentage + "%";
+}
+
+if (dashboardProgressText) {
+    dashboardProgressText.textContent =
+        progressPercentage.toFixed(1) + "% collected";
+}
 
 
+    // Update collected and pending amounts
+    totalFeesCollected.textContent = "₹" + collected.toLocaleString("en-IN");
+    const dashboardSummaryCollected = document.getElementById("dashboardSummaryCollected");
 
+if (dashboardSummaryCollected) {
+    dashboardSummaryCollected.textContent =
+        "₹" + collected.toLocaleString("en-IN");
+}
+    pendingFeesAmount.textContent = "₹" + Math.max(0, totalFees - collected).toLocaleString("en-IN");
 
-
-
-feePaymentForm.reset();
-collectFeeForm.style.display = "none";
+    // Number of payment receipts
+    receiptsGeneratedCount.textContent = payments.length;
 }
