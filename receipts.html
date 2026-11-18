@@ -1,339 +1,176 @@
-<!DOCTYPE html>
-
+x`<!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>School Fee System</title>
-
     <link rel="stylesheet" href="styls.css">
-
 </head>
-
 
 <body>
 
-
     <div class="app">
 
-
-        <!-- ================= SIDEBAR ================= -->
-
+        <!-- SIDEBAR -->
         <div class="sidebar">
 
-
             <div class="logo">
-
                 <div class="logo-icon">S</div>
-
                 <div>
-
                     <h2>SchoolFees</h2>
-
                     <span>Management System</span>
-
                 </div>
-
             </div>
-
-
 
             <nav class="navigation">
 
-
                 <p class="menu-title">MAIN MENU</p>
 
-
                 <a href="index.html" class="nav-link">
-
                     <span>▣</span>
-
                     Dashboard
-
                 </a>
-
 
                 <a href="students.html" class="nav-link">
-
                     <span>▣</span>
-
                     Students
-
                 </a>
-
 
                 <a href="fee.html" class="nav-link">
-
                     <span>▣</span>
-
                     Fee Collection
-
                 </a>
-
 
                 <a href="receipts.html" class="nav-link active">
-
                     <span>▣</span>
-
                     Receipts
-
                 </a>
-
 
                 <p class="menu-title">OTHERS</p>
 
-
                 <a href="#" class="nav-link">
-
                     <span>S</span>
-
                     Settings
-
                 </a>
-
 
             </nav>
 
-
-
             <div class="sidebar-bottom">
-
                 <div class="admin-avatar">A</div>
-
-
                 <div>
-
                     <strong>Administration</strong>
-
                     <small>Admin</small>
-
                 </div>
-
             </div>
-
 
         </div>
 
-
-
-        <!-- ================= MAIN CONTENT ================= -->
-
+        <!-- MAIN CONTENT -->
         <div class="main-content">
 
-
             <!-- HEADER -->
-
             <header class="top-header">
 
-
                 <div>
-
                     <h1>Receipts</h1>
-
                     <p>View and manage student fee receipts</p>
-
                 </div>
-
-
 
                 <div class="header-right">
 
-
                     <button class="notification-btn">
-
                         🔔
-
                     </button>
 
-
-
                     <div class="profile">
-
-                        <div class="profile-avatar">
-
-                            A
-
-                        </div>
-
-
+                        <div class="profile-avatar">A</div>
                         <div>
-
                             <strong>Administrator</strong>
-
                             <small>Admin</small>
-
                         </div>
-
                     </div>
 
-
                 </div>
-
 
             </header>
 
-
-
-            <!-- ================= RECEIPTS CONTENT ================= -->
-
+            <!-- RECEIPTS CONTENT -->
             <section class="dashboard">
 
-
                 <!-- STATISTICS -->
-
                 <div class="stats-grid">
 
-
                     <div class="stat-card">
-
                         <div class="stat-info">
-
                             <p>Total Receipts</p>
-
-                            <h2>186</h2>
-
-                            <span class="positive">
-
-                                ↑ 15% this month
-
-                            </span>
-
+                            <h2 id="totalReceiptsCount">0</h2>
+                            <span class="positive">All recorded receipts</span>
                         </div>
-
 
                         <div class="stat-icon receipt-icon">
-
                             🧾
-
                         </div>
-
                     </div>
 
-
-
                     <div class="stat-card">
-
                         <div class="stat-info">
-
                             <p>Today's Receipts</p>
-
-                            <h2>12</h2>
-
-                            <span class="positive">
-
-                                ↑ 3 from yesterday
-
-                            </span>
-
+                            <h2 id="todayReceiptsCount">0</h2>
+                            <span class="positive">Receipts generated today</span>
                         </div>
-
 
                         <div class="stat-icon student-icon">
-
                             📄
-
                         </div>
-
                     </div>
 
-
-
                     <div class="stat-card">
-
                         <div class="stat-info">
-
                             <p>This Month</p>
-
-                            <h2>₹8,50,000</h2>
-
-                            <span class="positive">
-
-                                ↑ 8% this month
-
-                            </span>
-
+                            <h2 id="monthlyReceiptsAmount">₹0</h2>
+                            <span class="positive">Current month's collection</span>
                         </div>
-
 
                         <div class="stat-icon fees-icon">
-
                             💰
-
                         </div>
-
                     </div>
-
-
 
                     <div class="stat-card">
-
                         <div class="stat-info">
-
                             <p>Average Receipt</p>
-
-                            <h2>₹4,570</h2>
-
-                            <span class="positive">
-
-                                ↑ 5% this month
-
-                            </span>
-
+                            <h2 id="averageReceiptAmount">₹0</h2>
+                            <span class="positive">Average payment amount</span>
                         </div>
-
 
                         <div class="stat-icon pending-icon">
-
                             📊
-
                         </div>
-
                     </div>
-
 
                 </div>
 
-
-
-                <!-- ================= RECEIPT LIST ================= -->
-
+                <!-- RECEIPT LIST -->
                 <div class="card receipt-list-card">
-
 
                     <div class="card-header">
 
-
                         <div>
-
                             <h3>Receipt List</h3>
-
                             <p>View and manage generated receipts</p>
-
                         </div>
 
-
                         <button class="generate-receipt-btn">
-
                             + Generate Receipt
-
                         </button>
-
 
                     </div>
 
-
-
                     <!-- SEARCH AND FILTERS -->
-
                     <div class="receipt-filters">
 
-
                         <div class="receipt-search">
-
                             🔍
 
                             <input
@@ -341,107 +178,65 @@
                                 id="receiptSearch"
                                 placeholder="Search by receipt number, student..."
                             >
-
                         </div>
 
+                        <select id="receiptClassFilter">
 
-                        <select>
-
-                            <option>All Classes</option>
-
-                            <option>10th</option>
-
-                            <option>9th</option>
-
-                            <option>8th</option>
-
-                            <option>7th</option>
+                            <option value="">All Classes</option>
+                            <option value="10th">10th</option>
+                            <option value="9th">9th</option>
+                            <option value="8th">8th</option>
+                            <option value="7th">7th</option>
 
                         </select>
 
+                        <select id="receiptMethodFilter">
 
-                        <select>
-
-                            <option>All Payments</option>
-
-                            <option>Cash</option>
-
-                            <option>UPI</option>
-
-                            <option>Card</option>
-
-                            <option>Bank Transfer</option>
+                            <option value="">All Payments</option>
+                            <option value="Cash">Cash</option>
+                            <option value="UPI">UPI</option>
+                            <option value="Card">Card</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
 
                         </select>
-
 
                     </div>
 
-
-
                     <!-- RECEIPT TABLE -->
-
                     <div class="table-container">
-
 
                         <table>
 
-
                             <thead>
-
                                 <tr>
-
                                     <th>#</th>
-
                                     <th>Receipt No.</th>
-
                                     <th>Student</th>
-
                                     <th>Class</th>
-
                                     <th>Amount</th>
-
                                     <th>Payment Date</th>
-
                                     <th>Method</th>
-
                                     <th>Status</th>
-
                                     <th>Action</th>
-
                                 </tr>
-
                             </thead>
-                            
 
                             <tbody id="receiptTableBody">
-
-                                
                             </tbody>
 
-
-                          </table>
-
+                        </table>
 
                     </div>
 
-
                 </div>
-
 
             </section>
 
-
         </div>
-
 
     </div>
 
-
-
     <script src="app.js"></script>
 
-
 </body>
-
-</html> 
+</html>
